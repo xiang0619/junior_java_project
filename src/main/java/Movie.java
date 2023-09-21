@@ -6,13 +6,15 @@ public class Movie {
     private String movieType;
     private Date mReleaseDate;
     private int mDuration;
+    private double price;
 
-    public Movie(String movieName, String movieID, String movieType, Date mReleaseDate, int mDuration) {
+    public Movie(String movieName, String movieID, String movieType, Date mReleaseDate, int mDuration, double price) {
         this.movieName = movieName;
         this.movieID = movieID;
         this.movieType = movieType;
         this.mReleaseDate = mReleaseDate;
         this.mDuration = mDuration;
+        this.price = price;
     }
 
     public String getMovieName() {

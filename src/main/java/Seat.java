@@ -1,23 +1,16 @@
 public class Seat {
     private String seatID;
-    private double price;
     private boolean seatStatus;
-    private String seatIdentifier;
-
-    public Seat(String seatID, double price,String seatIdentifier) {
-        this.seatID = seatID;
-        this.price = price;
-        this.seatStatus = false;
-        this.seatIdentifier = seatIdentifier;
-    }
     
+    public Seat(){};
+    
+    public Seat(String seatID, boolean status) {
+        this.seatID = seatID;
+        this.seatStatus = status;
+    }
 
     public String getSeatID() {
         return seatID;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public boolean getSeatStatus() {
@@ -34,13 +27,18 @@ public class Seat {
         }
     }
 
+    public void setSeatID(String seatID) {
+        this.seatID = seatID;
+    }
+
+    public void setSeatStatus(boolean seatStatus) {
+        this.seatStatus = seatStatus;
+    }
+    
     public void cancelReservation() {
         if (seatStatus) {
             seatStatus = false;
         }
     }
 
-    public String toString() {
-        return "Seat ID: " + seatID + ", Price: " + price + ", Occupied: " + seatStatus;
-    }
 }

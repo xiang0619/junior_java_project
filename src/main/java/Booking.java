@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 public class Booking {
     private String bookingId;
     private static String nextBookingId = "C0001";
@@ -24,5 +25,7 @@ public class Booking {
         this.receipt = new Receipt(cust, movieName, payment, bookingDate); // Pass movieName here
         this.bookingDate = bookingDate;
     }
+    
+    
 }
 

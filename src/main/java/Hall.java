@@ -1,10 +1,16 @@
+import java.util.ArrayList;
+
 public class Hall {
     private String hallID;
     private int capacity;
+    private ArrayList<Seat> seats;
 
-    public Hall(String hallID, int capacity) {
+    public Hall(){}
+    
+    public Hall(String hallID, int capacity, ArrayList<Seat> seats) {
         this.hallID = hallID;
         this.capacity = capacity;
+        this.seats = seats;
     }
 
     public String getHallID() {
