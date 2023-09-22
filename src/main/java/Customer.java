@@ -2,40 +2,34 @@ class Customer {
 	//data properties
     private String username;
     private String password;
-    private String securityQuestion;
-    private String securityAnswer;
-    private String gender;
+    private char gender;
     private String phoneNumber;
     
+    public Customer(){};
+    
     //methods
-    public Customer(String username, String password, String securityQuestion, String securityAnswer, String gender, String phoneNumber) {
+    public Customer(String username, String password, char gender, String phoneNumber) {
         this.username = username;
         this.password = password;
-        this.securityQuestion = securityQuestion;
-        this.securityAnswer = securityAnswer;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
     }
 
     // Getter methods for gender and phone number and others
-    public String getGender() {
+    public char getGender() {
         return gender;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
-    public String getSecurityQuestion() {
-        return securityQuestion;
-    }
-
-    public boolean verifySecurityAnswer(String providedAnswer) {
-        return securityAnswer.equals(providedAnswer);
-    }
     
     public String getUsername() {
         return username;
+    }
+    
+    public String getPassword(){
+        return password;
     }
     
     public void changePassword(String newPassword) {

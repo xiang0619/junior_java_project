@@ -1,31 +1,29 @@
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.Random;
 
-
 public class MovieTicketingSystem {
-    private UserDatabase userDatabase;
     private Customer loggedInCustomer;
     private ArrayList<Movie> movies;
     private ArrayList<Schedule> schedules;
     private ArrayList<Hall> halls;
     private ArrayList<Seat> seats;
+    private ArrayList<Customer> customers;
 
     public MovieTicketingSystem() {
-        userDatabase = new UserDatabase();
-        loggedInCustomer = null;
         movies = new ArrayList<Movie>();
         schedules = new ArrayList<Schedule>();
+        halls = new ArrayList<Hall>();
+        seats = new ArrayList<Seat>();
+        customers = new ArrayList<Customer>();
         initializeMovies();
-        initializeHall();
-        initializeSeat();
-        initializeSchedule();
+        initializeHalls();
+        initializeSeats();
+        initializeSchedules();
+        initializeCustomers();
     }
 
     private void initializeMovies() {
@@ -44,7 +42,7 @@ public class MovieTicketingSystem {
         }
     }
     
-    private void initializeHall(){
+    private void initializeHalls(){
         try{
             Hall hall1 = new Hall("H01",120,seats);
             Hall hall2 = new Hall("H02",120,seats);
@@ -57,7 +55,7 @@ public class MovieTicketingSystem {
         }
     }
     
-    private void initializeSchedule(){
+    private void initializeSchedules(){
         int i = 0;
         for(Movie movie : movies){
             try{
@@ -71,7 +69,7 @@ public class MovieTicketingSystem {
         }
     }
 
-    private void initializeSeat(){
+    private void initializeSeats(){
         try{
             Seat seat = new Seat();
             for (char letter = 'a'; letter <= 'j'; letter++) {
@@ -91,15 +89,43 @@ public class MovieTicketingSystem {
         }
     }
     
-    public void registerCustomer(String username, String password, String securityQuestion, String securityAnswer, String gender, String phoneNumber) {
-        if (userDatabase.registerUser(username, password, securityQuestion, securityAnswer, gender, phoneNumber)) {
-            System.out.println("Registration successful. You can now log in.");
-        } else {
-            System.out.println("Username is already taken. Please choose a different one.");
-        }
+    private void initializeCustomers(){
+        Customer customer1 = new Customer("user1","password",'M',"123-456-7890");
+        Customer customer2 = new Customer("user2","password",'F',"987-654-3210");
+        Customer customer3 = new Customer("user3","password",'M',"555-123-4567");
+        Customer customer4 = new Customer("user4","password",'F',"444-654-3210");
+        Customer customer5 = new Customer("user5","password",'M',"333-654-3210");
+        
+        customers.add(customer1);
+        customers.add(customer2);
+        customers.add(customer3);
+        customers.add(customer4);
+        customers.add(customer5);
     }
 
-    public void login() {
+    private boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter your username: ");
+        String username = scanner.nextLine();
+
+        System.out.println("Please enter your password: ");
+        String password = scanner.nextLine();
+        
+        int i = 0;
+        
+        for(Customer customer:customers){
+            if(customer.getUsername().equals(username) && customer.getPassword().equals(password)){
+                loggedInCustomer = customers.get(i);
+                return true;
+            }
+            i++;
+        }
+        
+        return false;
+    }
+    
+    private boolean register(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please enter your username: ");
@@ -108,15 +134,15 @@ public class MovieTicketingSystem {
         System.out.println("Please enter your password: ");
         String password = scanner.nextLine();
 
-        Customer customer = userDatabase.getUser(username);
+        System.out.println("Please enter your gender(M/F): ");
+        char gender = scanner.nextLine().charAt(0);
 
-        if (customer != null && customer.authenticate(username, password)) {
-            loggedInCustomer = customer;
-            System.out.println("Login successful. Welcome, " + customer.getUsername() + "!");
-            displayLoggedInMenu();
-        } else {
-            System.out.println("Login failed. Please check your username and password.");
-        }
+        System.out.println("Please enter your phone number: ");
+        String phone = scanner.nextLine();
+        
+        customers.add(new Customer(username,password,gender,phone));
+        
+        return true;
     }
 
     public void logout() {
@@ -128,6 +154,8 @@ public class MovieTicketingSystem {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
+            System.out.println();
             System.out.println("Logged-in Menu");
             System.out.println("1. View Profile");
             System.out.println("2. Change Password");
@@ -151,32 +179,35 @@ public class MovieTicketingSystem {
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Exit");
-            System.out.print("Select an option: ");
+            System.out.println("Select an option: ");
 
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    scanner.nextLine(); // Consume the newline character
-                    System.out.println("Enter your details to register:");
-                    System.out.print("Username: ");
-                    String regUsername = scanner.nextLine();
-                    System.out.print("Password: ");
-                    String regPassword = scanner.nextLine();
-                    System.out.print("Security Question: ");
-                    String regSecurityQuestion = scanner.nextLine();
-                    System.out.print("Security Answer: ");
-                    String regSecurityAnswer = scanner.nextLine();
-                    System.out.print("Gender: ");
-                    String regGender = scanner.nextLine();
-                    System.out.print("Phone Number: ");
-                    String regPhoneNumber = scanner.nextLine();
-
-                    ticketingSystem.registerCustomer(regUsername, regPassword, regSecurityQuestion, regSecurityAnswer, regGender, regPhoneNumber);
+                    scanner.nextLine();
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Register : ");
+                    
+                    if(ticketingSystem.register()){
+                        
+                    }else{
+                        System.out.println("Invalid information, please enter correct account information.");
+                    }
                     break;
                 case 2:
                     scanner.nextLine(); // Consume the newline character
-                    ticketingSystem.login();
+                    
+                    System.out.println();
+                    System.out.println();
+                    System.out.println("Login : ");
+                    
+                    if(ticketingSystem.login()){
+                        ticketingSystem.displayLoggedInMenu();
+                    }else{
+                        System.out.println("Invalid information, please enter correct account information.");
+                    }
                     break;
                 case 3:
                     System.out.println("Exiting Movie Ticketing System. Goodbye!");
