@@ -30,7 +30,7 @@ public class MovieTicketingSystem {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date releaseDate1 = dateFormat.parse("2023-09-20");
-            Date releaseDate2 = dateFormat.parse("2023-10-15");
+            Date releaseDate2 = dateFormat.parse("2023-09-23");
 
             Movie movie1 = new Movie("Movie 1", "M001", "Action", releaseDate1, 120, 15.00);
             Movie movie2 = new Movie("Movie 2", "M002", "Comedy", releaseDate2, 105, 16.00);
@@ -145,6 +145,33 @@ public class MovieTicketingSystem {
         return true;
     }
 
+    private void changePassword(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter your new password: ");
+        String password = scanner.nextLine();
+        
+        loggedInCustomer.setPassword(password);
+    }
+    
+    private void viewProfile(){
+        System.out.printf("Username: %s\n", loggedInCustomer.getUsername());
+        System.out.printf("Gender: %c\n", loggedInCustomer.getGender());
+        System.out.printf("Phone Number: %s\n", loggedInCustomer.getPhoneNumber());
+    }
+    
+    private void viewMovie(){
+        for(Movie movie : movies){
+            System.out.printf(movie.toString());
+            System.out.println();
+            System.out.println();
+        }
+    }
+    
+    private void orderMovieTicket(){
+        
+    }
+    
     public void logout() {
         loggedInCustomer = null;
         System.out.println("Logged out successfully.");
@@ -152,20 +179,46 @@ public class MovieTicketingSystem {
 
     public void displayLoggedInMenu() {
         Scanner scanner = new Scanner(System.in);
-
-        while (true) {
+        boolean running = true;
+        
+        while (running) {
             System.out.println();
             System.out.println();
             System.out.println("Logged-in Menu");
             System.out.println("1. View Profile");
             System.out.println("2. Change Password");
             System.out.println("3. View Movies");
-            System.out.println("4. Logout");
-            System.out.print("Select an option: ");
+            System.out.println("4. Order Movie Tieket");
+            System.out.println("5. Logout");
+            System.out.println("Select an option: ");
 
             int choice = scanner.nextInt();
 
-            
+            switch(choice){
+                case 1:
+                    scanner.nextLine();
+                    viewProfile();
+                    break;
+                case 2:
+                    scanner.nextLine();
+                    changePassword();
+                    break;
+                case 3:
+                    scanner.nextLine();
+                    viewMovie();
+                    break;
+                case 4:
+                    scanner.nextLine();
+                    orderMovieTicket();
+                    break;
+                case 5:
+                    scanner.nextLine();
+                    logout();
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
         }
     }
 
