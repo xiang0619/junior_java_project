@@ -41,4 +41,10 @@ public class Seat {
         }
     }
 
+    public String toString(){
+        String seatInfo = "Seat ID : " + this.seatID
+                            + "Seat Status : " + this.seatStatus;
+        
+        return seatInfo;
+    } 
 }

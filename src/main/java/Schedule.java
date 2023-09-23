@@ -25,4 +25,12 @@ public class Schedule {
     public Movie getMovie() {
         return movie;
     }
+    
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
 }

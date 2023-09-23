@@ -20,6 +20,26 @@ public class Hall {
     public int getCapacity() {
         return capacity;
     }
+    
+    public ArrayList<Seat> getSeats() {
+        return seats;
+    }
+    
+    public String getSeatsInfor(){
+        String seatsInfor = "";
+        
+        int i = 1;
+        
+        for(Seat seat:seats){
+            seatsInfor += seat.toString() + "    ";
+            if(i % 12 == 0){
+                seatsInfor += "\n";
+            }
+            i++;
+        }
+        
+        return seatsInfor;
+    }
 
     public void setHallID(String hallID) {
         this.hallID = hallID;

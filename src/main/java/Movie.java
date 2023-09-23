@@ -21,6 +21,26 @@ public class Movie {
         return movieName;
     }
 
+    public String getMovieID() {
+        return movieID;
+    }
+
+    public String getMovieType() {
+        return movieType;
+    }
+
+    public Date getMReleaseDate() {
+        return mReleaseDate;
+    }
+
+    public int getMDuration() {
+        return mDuration;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
     public String toString() {
         return ("Movie Details:\n" +
                 "Movie Name: " + movieName +
